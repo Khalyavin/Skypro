@@ -1,4 +1,5 @@
 import csv
+import os
 
 path = '/home/vssl/PythonProject/kurs_SP500/'
 data_file = 'all_stocks_5yr.csv'
@@ -66,11 +67,23 @@ def sort_data(sort_columns_, order_):
 
 
 def write_data(f_name):
-    if not f-name:  # В запросе нет файла, вывожу на экран
+    """ Сбрасывает подготовенный список data в файл
+    """
+    header = ["date", "open", "high", "low", "close", "volume"]
+    full_data_file = path + f_name
+
+    if not f_name:  # В запросе нет файла, вывожу на экран
         for i in range(len(data)):
             print(data[i])
     else:
-        pass
+        if os.path.isfile(full_data_file):
+            os.remove(full_data_file)
+
+        with open(full_data_file, 'w', newline='') as csvfile:
+            movies = csv.writer(csvfile)
+            movies.writerow(header)
+            for row in data:
+                movies.writerow(row)
 
 
 def select_sorted(sort_columns=None, limit=20, order='asc', group_by_name=True,
@@ -94,4 +107,4 @@ def select_sorted(sort_columns=None, limit=20, order='asc', group_by_name=True,
     # отсортированные данные сброшены в файл filename
 
 
-select_sorted(sort_columns="volume", order="desc", limit=5, ticker='FLS', group_by_name=True)
+select_sorted(sort_columns="volume", order="asc", limit=5, ticker='FLS', group_by_name=True)
