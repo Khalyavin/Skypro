@@ -81,7 +81,7 @@ def cutter(date, f_name):
             movies.writerow(row)
 
 
-# cutter('2017-08-08', 'tmp_data.csv')
+cutter('2017-08-08', 'tmp_data.csv')
 # В tmp_data лежит 503 записи с датой 2017-08-08
 
 unique_ticker_test('tmp_data.csv')
